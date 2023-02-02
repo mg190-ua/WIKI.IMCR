@@ -1,13 +1,15 @@
 {
   "index": "Introducción",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
   "contact": {
-    "title": "Contact ↗",
+    "title": "Contacto ↗",
     "type": "page",
     "href": "https://github.com/ErDanieh",
+    "newWindow": true
+  },
+  "El teacher": {
+    "title": "El teacher",
+    "type": "page",
+    "href": "https://www.linkedin.com/in/marcelo-saval-calvo-36460056/",
     "newWindow": true
   }
 
