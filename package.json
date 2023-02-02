@@ -1,7 +1,7 @@
 {
-  "name": "nextra-docs-template",
+  "name": "WIKI.IMCR.COM",
   "version": "0.0.1",
-  "description": "Nextra docs template",
+  "description": "Esta es la wiki de IMCR.COM",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "git+https://github.com/ErDanieh/WIKI.IMCR"
   },
-  "author": "Shu Ding <g@shud.in>",
+  "author": "Daniel Asensi Roch, Vadym,Formanyuk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
+    "url": "https://github.com/ErDanieh/WIKI.IMCR"
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
