@@ -4,15 +4,15 @@ import { DocsThemeConfig } from 'nextra-theme-docs'
 const config: DocsThemeConfig = {
   logo: <span>WIKI IMCR</span>,
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: 'https://github.com/ErDanieh/WIKI.IMCR.git',
   },
   chat: {
     link: 'https://discord.com',
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: 'https://github.com/ErDanieh/WIKI.IMCR.git',
   footer: {
-    text: 'Nextra Docs Template',
-  },
+    text: 'Esta es la documentación de IMCR',
+  },  
 }
 
 export default config
