@@ -7,7 +7,7 @@ const config: DocsThemeConfig = {
     link: 'https://github.com/ErDanieh/WIKI.IMCR.git',
   },
   chat: {
-    link: 'https://discord.com',
+    link: 'https://discord.gg/JnydXrAB',
   },
   docsRepositoryBase: 'https://github.com/ErDanieh/WIKI.IMCR.git',
   footer: {
