@@ -44,7 +44,7 @@ La librería principal que nos servirá para “transformar” o modificar liger
 - pip install matplotlib
 - pip install torch torchvision
 Una vez instaladas las librerías, las implementaremos en nuestro código y definiremos también una función transformacion() que recibirá una imagen y un tipo de transformación de Pytorch y nos mostrará en pantalla dos imágenes: la imagen original (izquierda) y la imagen transformada (derecha). El código resultante sería:
-![image](Images/ImagenesDataAugmentation/function.png)
+![image](Images/ImagenesDataAugmentation/funcion.png)
 A continuación, podríamos escribir simplemente 2 líneas para poder realizar y observar nuestra transformación. En la primera línea estamos seleccionando, en la variable “loader_transform”, la transformación que queremos aplicar a la imagen. Esta transformación de Pytorch se obtiene con transforms (de torchvision) y podremos elegir entre varias (en los ejemplos veremos algunas de ellas) y especificar valores. Una vez tengamos la transformación deseada en la variable, podemos llamar a la función con esta y con la imagen que deseemos (podemos escribir simplemente su nombre si la imagen se encuentra en la misma carpeta donde ejecutamos el código o podemos definir su ruta).
 ![image](Images/ImagenesDataAugmentation/llamada.png)
 Por último, ejecutaríamos nuestro código de Python. Es importante que sea con python3 o de lo contrario no funcionaría correctamente. Además, si quisiéramos mejorar el código, podríamos poner la imagen como argumento de ejecución para poder seleccionar la que quisiéramos sin modificar el código.
