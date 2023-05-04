@@ -1,0 +1,161 @@
+# Descriptores 2D.
+
+Los descriptores 2D, en el mundo del procesamiento de imágenes, son técnicas que se usan para describir características o *features* en una imagen para poder identificarla. Son muy útiles en el procesamiento de imágenes para clasificarlas, por ejemplo, o reconocer objetos en la propia imagen, entre otros.
+
+## Tipos de descriptores.
+
+Actualmente existen varios tipos de descriptores que podemos usar para nuestro proyecto. Aquí veremos seis, aunque dos sólo serán nombrados pues forman parte de otros dos que se explicarán.
+
+### SIFT
+
+*Scale-Invariant Feature Transform* es un descriptor invariante en cambios de escala, rotación e iluminación. Detecta puntos de interés y características locales en una imagen utilizando histogramas de orientación de gradientes o *HOG*.
+
+Para tener claro qué es un *HOG*, a continuación se muestra una imagen que explica cómo estos descriptores reconocen patrones en una imagen. En este ejemplo, se usa un patrón extraído a partir de muchas imágenes de caras para reconocer una cara en una imagen dada.
+
+**INSERTAR IMAGEN**
+
+### SURF
+
+### ORB
+
+### BRISK
+
+## Práctica.
+
+Vamos a ver cómo podemos usar nosotros estos descriptores para nuestro beneficio. Deberemos tener MATLAB para poder llevar a cabo este ejemplo introductorio. 
+
+Para esta práctica usaremos las siguientes dos imágenes:
+
+[Objeto](https://es.mathworks.com/help/examples/vision/win64/FeatureBasedObjectDetectionExample_01.png) - [Contexto](https://es.mathworks.com/help/examples/vision/win64/FeatureBasedObjectDetectionExample_02.png)
+
+Tendremos que descargar estas imágenes, guardarlas como **objeto.jpg** y **contexto.jpg** y recortarles los bordes blancos para que la práctica sea más natural. Cuando tengamos esto hecho, deberemos importar una a una nuestras imágenes en MATLAB. Podemos hacerlo arrastrando el fichero al entorno y dándole a *Finish* cuando las detecte. Luego, ejecutaremos los siguientes comandos:
+
+**objeto = rgb2gray(objeto);**
+
+**contexto = rgb2gray(contexto);**
+
+### Detección.
+
+MATLAB nos ofrece varias funciones para detectar las características con el detector que nosotros queramos. Estas funciones son:
+- detectSIFTFeatures()
+- detectSURFFeatures()
+- detectORBFeatures()
+- detectBRISKFeatures()
+
+Nosotros usaremos **detectSIFTFeatures()** de la siguiente manera:
+
+puntos_objeto = detectSIFTFeatures(objeto);
+
+puntos_contexto = detectSIFTFeatures(contexto);
+
+**INSERTAR IMÁGENES DE PUNTOS_**
+
+Para mostrar los datos recogidos de la imagen podemos usar los siguientes comandos:
+
+**figure;**
+
+**imshow(objeto);**
+
+**hold on;**
+
+**plot(selectStrongest(puntos_objeto,100));**
+
+Con esto mostraremos la imagen **objeto.jpg** con los cien puntos de las características más fuertes que se hayan detectado. Podremos hacer lo mismo para el contexto:
+
+**figure;**
+
+**imshow(contexto);**
+
+**hold on;**
+
+**plot(selectStrongest(puntos_contexto,300));**
+
+Aquí mostraremos los 300 puntos más fuertes que se han detectado en el contexto.
+
+**INSERTAR FIGURAS CON PUNTOS**
+
+### Extracción.
+
+Deberemos extraer las características de la imagen. Este proceso lo haremos con dos comandos que guardarán en una tupla característica y punto todas las características que se encuentren. Los comandos son:
+
+**[features_contexto, puntos_contexto] = extractFeatures(contexto, puntos_contexto);**
+
+**[features_objeto, puntos_objeto] = extractFeatures(objeto, puntos_objeto);**
+
+**INSERTAR IMAGEN FEATURES**
+
+### *Matching*.
+
+Ahora que tenemos las características extraídas podemos realizar el *matching*:
+
+**parejas_objeto = matchFeatures(features_objeto,features_contexto);**
+
+Con el comando anterior hemos emparejado las características iguales que se han encontrado en la imagen del objeto con las que han sido halladas en la imagen del contexto.
+
+**INSERTAR IMAGEN PAREJAS_OBJETO**
+
+Podemos mostrar estas características emparejadas de la siguiente forma:
+
+**puntos_emparejados_objeto = puntos_objeto(parejas_objeto(:, 1), :);**
+
+**puntos_emparejados_contexto = puntos_contexto(parejas_objeto(:, 2), :);**
+
+**figure;**
+
+**showMatchedFeatures(objeto,contexto,puntos_emparejados_objeto,puntos_emparejados_contexto,'montage');**
+
+El comando anterior sacará la siguiente figura por pantalla:
+
+**INSERTAR FEATURES EMPAREJADAS**
+
+### Refinado.
+
+A menudo nos salen puntos emparejados con otros que no tienen nada que ver. Son errores que los algoritmos pueden cometer. Para solucionar esto, podemos refinar el resultado con el siguiente comando:
+
+**[tform,inlierIdx]=estgeotform2d(puntos_emparejados_objeto,puntos_emparejados_contexto,'affine');**
+
+**INSERTAR IMAGEN DEL REFINADO**
+
+### Localización.
+
+Por último, podemos localizar el objeto en la imagen con las características que hemos obtenido. Ejecutaremos los siguientes comandos:
+
+**boxPolygon =** 
+
+ **[1, 1;...                           % top-left**
+ **size(objeto, 2), 1;...                 % top-right**
+ **size(objeto, 2), size(objeto, 1);... % bottom-right**
+ **1, size(objeto, 1);...                 % bottom-left**
+ **1, 1];                   % top-left again to close the polygon**
+
+**newBoxPolygon = transformPointsForward(tform,boxPolygon);**
+
+**figure;**
+
+**imshow(contexto);**
+
+**hold on;**
+
+**line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), Color='y');**
+
+Obtendremos como salida la siguiente imagen:
+
+**INSERTAR IMAGEN LOCALIZACIÓN**
+
+### Comparación con otros decsriptores.
+
+Podemos hacer el mismo proceso con los otros descriptores, pero cambiando el comando en el que hicimos **detectSIFTFeatures()** por su correspondiente detector.
+
+#### SURF
+
+#### ORB
+
+#### BRISK
+
+### Observaciones.
+
+Es importante destacar que la calidad importa. A continucación, observamos, con una comparación, lo que ocurre si tenemos las mismas imágenes pero con distinta calidad.
+
+**INSERTAR COMPARACIÓN**
+
+Como observamos, se pueden emparejar muchos más puntos y características en una imagen de mejor calidad.
