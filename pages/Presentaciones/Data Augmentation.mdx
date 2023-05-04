@@ -1,0 +1,73 @@
+# Data Augmentation
+La calidad de las Inteligencias Artificiales suele verse muy influenciada por la calidad de los conjuntos de entrenamiento con los que la entrenaremos. En ocasiones, es posible que nuestras IAs no sean tan precisas a la hora de predecir resultados. Esto, entre otras posibles causas, puede ser debido al número de casos de prueba y la calidad de estos. En caso de no cumplir con ciertos criterios de cantidad y calidad, se puede producir Underfitting u Overfitting. Underfitting es debido a un número escaso de casos de entrenamiento que permitan clasificar de forma correcta, mientras que el Overfitting puede ocurrir cuando entrenamos con casos de entrenamiento muy concretos, por lo que la IA se puede ”malacostumbrar” e identificar correctamente solo en casos muy concretos, es decir, que no sabe generalizar. 
+![image](Images/ImagenesDataAugmentation/over-underfitting.png)
+
+La mejor forma de solucionar estos problemas es aumentando el número de casos de entrenamiento con una calidad decente. Sin embargo, en ocasiones no podemos obtener más casos reales y solo podemos trabajar con los obtenidos previamente. Lo que podemos hacer para poder tener más casos es aumentarlos de forma artificial y controlada. Es aquí donde entra en juego el Data Augmentation.
+
+Data Augmentation o “aumento de datos” consiste en agrandar el conjunto de entrenamiento con pequeñas modificaciones de los que tenemos, mejorando la capacidad de generalización y la precisión. Esto resolvería nuestro problema anterior, ya que, al no poder aumentar nuestros datos con datos reales, lo aumentaremos con datos sintéticos (los originales modificados, como se dice anteriormente). Esto nos permitirá aumentar nuestros casos de entrenamiento para intentar evitar el OverFitting y el Underfitting. Sin embargo, esto tiene que ser realizado con cierto control, ya que, si se hace libremente, podemos caer en que nuestro entrenamiento haga que la IA reproduzca patrones artificiales, caiga en Overfitting irónicamente o que requiera un costo computacional demasiado elevado (aquí ya tendríamos que evaluar si sería más eficiente recaudar más datos, en caso de ser posible, o acudir a esto a pesar de su elevado coste).
+
+Para asegurarnos de que los datos añadidos en Data Augmentation tengan una calidad suficiente como para que no caigamos en los inconvenientes anteriores, deberían cumplir los siguientes criterios:
+- Escalabilidad: Debe ser escalable para poder ser usado en la mayor cantidad de modelos distintos.
+- Relevante: Si es relevante, no causará confusión. Además, debemos tener en cuenta que no se deben introducir duplicados innecesarios de datos ya existentes, deben ser siempre únicos.
+- Heterogeneidad: Se deben considerar unas características clave para nuestro conjunto de datos para que se tengan en cuenta al aumentar nuestros datos. 
+- Validado: Por último, los datos deben ser validados en base a ciertos criterios y descartando posibles imágenes generadas de mala calidad.
+El concepto de Data Augmentation se puede aplicar a tanto a imágenes como a audio y vídeos. En esta página solo veremos cómo se puede aplicar a imágenes, debido a que es algo muy visual e intuitivo y se puede realizar de forma muy sencilla con algunas librerías de Python. Algunas de las técnicas que se pueden aplicar a imágenes para aumentar las imágenes que ya tenemos se pueden dividir en 2 grupos: por modificar la **posición** de la imagen y por cambiar el **color**. A continuación, podemos observar algunas técnicas de cada tipo junto a algunos ejemplos visuales para poder comprenderlo mejor, donde modificaremos la imagen de un coco:
+![image](Images/ImagenesDataAugmentation/coco.jpg)
+
+## Posición
+- Scaling: Modificar el tamaño de la imagen a unas dimensiones dadas.
+![image](Images/ImagenesDataAugmentation/cocoScaling.png)
+- Cropping: Se recorta la imagen y se obtiene una parte de la imagen.
+![image](Images/ImagenesDataAugmentation/cocoCropping.png)
+- Flipping: La imagen se edita para realizar una rotación, la cual puede ser horizontal o vertical.
+![image](Images/ImagenesDataAugmentation/cocoFlipping.png)
+- Padding: Se añaden bordes a la imagen manteniendo el tamaño original y comprimiendo la propia imagen.
+![image](Images/ImagenesDataAugmentation/cocoPadding.png)
+- Rotation: Se rota la imagen una cantidad de grados determinado.
+![image](Images/ImagenesDataAugmentation/cocoRotation.png)
+- Translation: La imagen es movida en el eje X y/o el eje Y.
+![image](Images/ImagenesDataAugmentation/cocoTraslation.png)
+
+## Color
+- Brightness: Se modifica el brillo de la imagen original.
+![image](Images/ImagenesDataAugmentation/cocoBrightness.png)
+- Contrast: Podemos modificar el contraste de la imagen, es decir, la diferencia entre los puntos más oscuros y brillantes de la imagen.
+![image](Images/ImagenesDataAugmentation/cocoContrast.png)
+- Saturation: Si modificamos la saturación de la imagen, estamos modificando la intensidad de cada color.
+![image](Images/ImagenesDataAugmentation/cocoSaturation.png)
+- Hue: Hue (o tono en español) se refiere al color representado en la imagen.
+![image](Images/ImagenesDataAugmentation/cocoHue.png)
+
+## Ejemplos prácticos con Python
+La librería principal que nos servirá para “transformar” o modificar ligeramente nuestras imágenes es la librería de Python Pytorch. Además, para poder trabajar con las imágenes y visualizarlas de forma cómoda, utilizaremos las librerías Pillow y matplotlib. Podéis descargar estas librerías para probarlas vosotros mismos en Python utilizando pip con los siguientes comandos:
+- pip install Pillow
+- pip install matplotlib
+- pip install torch torchvision
+Una vez instaladas las librerías, las implementaremos en nuestro código y definiremos también una función transformacion() que recibirá una imagen y un tipo de transformación de Pytorch y nos mostrará en pantalla dos imágenes: la imagen original (izquierda) y la imagen transformada (derecha). El código resultante sería:
+![image](Images/ImagenesDataAugmentation/funcion.png)
+A continuación, podríamos escribir simplemente 2 líneas para poder realizar y observar nuestra transformación. En la primera línea estamos seleccionando, en la variable “loader_transform”, la transformación que queremos aplicar a la imagen. Esta transformación de Pytorch se obtiene con transforms (de torchvision) y podremos elegir entre varias (en los ejemplos veremos algunas de ellas) y especificar valores. Una vez tengamos la transformación deseada en la variable, podemos llamar a la función con esta y con la imagen que deseemos (podemos escribir simplemente su nombre si la imagen se encuentra en la misma carpeta donde ejecutamos el código o podemos definir su ruta).
+![image](Images/ImagenesDataAugmentation/llamada.png)
+Por último, ejecutaríamos nuestro código de Python. Es importante que sea con python3 o de lo contrario no funcionaría correctamente. Además, si quisiéramos mejorar el código, podríamos poner la imagen como argumento de ejecución para poder seleccionar la que quisiéramos sin modificar el código.
+![image](Images/ImagenesDataAugmentation/ejecucion.png)
+A continuación, observaremos cómo realizar las 10 transformaciones vistas anteriormente. Para ello, definiremos la variable “loader_transform” de distintas maneras. La imagen que utilizaremos para probar esto será la ya famosa Lenna.
+![image](Images/ImagenesDataAugmentation/lenna.png)
+- Scaling: 
+![image](Images/ImagenesDataAugmentation/scaling.png)
+- Cropping: 
+![image](Images/ImagenesDataAugmentation/cropping.png)
+- Flipping: 
+![image](Images/ImagenesDataAugmentation/flipping.png)
+- Padding: 
+![image](Images/ImagenesDataAugmentation/padding.png)
+- Rotation: 
+![image](Images/ImagenesDataAugmentation/rotation.png)
+- Translation:
+![image](Images/ImagenesDataAugmentation/translation.png)
+- Brightness: 
+![image](Images/ImagenesDataAugmentation/brightness.png)
+- Contrast: 
+![image](Images/ImagenesDataAugmentation/contrast.png)
+- Saturation: 
+![image](Images/ImagenesDataAugmentation/saturation.png)
+- Hue: 
+![image](Images/ImagenesDataAugmentation/hue.png)
