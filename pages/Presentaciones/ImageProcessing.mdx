@@ -1,0 +1,132 @@
+# PROCESAMIENTO DE IMÁGENES
+
+LINK PRESENTACIÓN: https://www.canva.com/design/DAFefzRkiI8/HA2ypAmXntG9GnQi339g7A/edit?utm_content=DAFefzRkiI8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+# INTRODUCCIÓN VISIÓN ARTIFICIAL (COMPUTER VISIÓN)
+Es un campo de la inteligencia artificial. Se trata de un conjunto de tecnologías que permite adquirir, gestionar y analizar información visual. La visión artificial es una tecnología que permite a los ordenadores “ver”, entender y procesar el contenido de imágenes digitales para tomar decisiones. En otras palabras, tiene como objetivo dar a las computadoras una comprensión visual del mundo
+La visión artificial funciona de manera muy similar a la visión humana, excepto que los humanos tienen una ventaja inicial. La vista humana tiene la ventaja de toda una vida de contexto para entrenar cómo distinguir los objetos, a qué distancia están, si se están moviendo y si hay algo mal en una imagen.
+La visión artificial entrena a las máquinas para realizar estas funciones, pero tiene que hacerlo en mucho menos tiempo con cámaras, datos y algoritmos en lugar de retinas, nervios ópticos y una corteza visual. Como un sistema entrenado para inspeccionar productos o ver un activo de producción puede analizar miles de productos o procesos por minuto, detectando defectos o problemas imperceptibles, puede superar rápidamente las capacidades humanas.
+
+# ETAPAS DEL PROCESAMIENTO DE IMÁGENES
+1. Adquisición
+
+2. Pre-pocesamiento
+
+3. Segmentación
+
+4. Extracción de características
+
+5. Identificación de objetos
+
+## ADQUISICIÓN
+La adquisición es el proceso a través del cual se obtiene una imagen. Debido a que las computadoras sólo pueden procesar imágenes digitales, es necesario convertir las mismas a esta forma. Es necesario analizar las condiciones de la imagen para conocer las propiedades de la imagen y además esta puede condicionar a los algoritmos usados posteriormente.
+
+## PREPROCESAMIENTO
+Filtros morfológicos:
+- Erosión: Consiste en la eliminación de todos los píxeles del objeto en cuyo vecindario haya al menos un píxel que pertenezca al fondo. Su efecto es reducir el tamaño de los objetos o eliminar los objetos que sean muy pequeños.
+- Dilatación: Todos los píxeles de fondo en cuyo vecindario exista al menos un píxel perteneciente al objeto, se convierten en objeto. Su efecto es aumentar el tamaño de los objetos o cerrar agujeros muy pequeños.
+- Apertura: Consiste en el encadenamiento de una erosión seguida de una dilatación. Su efecto es eliminar elementos salientes, conexiones finas o suavizar los contornos de un objeto.
+- Cierre: Consiste en el encadenamiento de una dilatación seguida de una erosión. Su efecto es el de fusionar dos objetos separados por un estrecho margen, eliminar pequeños agujeros manteniendo el tamaño del objeto, rellenar huecos existentes en el contorno o suavizar el contorno.
+
+## SEGMENTACIÓN
+La segmentación consiste en dividir una imagen digital en varias regiones (grupos de píxeles) denominadas segmentos. Más concretamente, la segmentación es un proceso de clasificación por píxel que asigna una categoría a cada píxel de la imagen analizada.
+
+El resultado es un conjunto de segmentos que cubren en conjunto a toda la imagen, donde cada uno de los píxeles de una región son similares en alguna característica, como el color, la intensidad o la textura.
+
+Términos usados a la hora de explicar la segmentación:
+
+ETIQUETA: un valor entero que el algoritmo usa para expresar esa categoría
+
+SEGMENTO: Grupo de píxeles conectados (vecinos) con una misma categoríA
+
+SEGMENTACIÓN: Proceso que produce una imagen de etiquetas, asignando una etiqueta para cada píxel de la imagen original
+
+### TIPOS DE SEGMENTACIÓN
+**Binaria**: Los segmentadores binarios son los que tienen solo dos categorías, usualmente denominadas frente y fondo. Su uso principal es el de extraer un segmento con el objeto buscado.
+La umbralización es la segmentación más básica y simple, es un ejemplo de segmentación binaria. Opera sobre cada píxel de manera independiente clasificándolos por su intensidad comparada con un umbral dado: si es más claro corresponde al frente, si no, al fondo.
+
+**Asistida**: Estos métodos requieren que el usuario aporte indicaciones previas sobre la región de la imagen a segmentar algoritmos que requieren anotaciones previas, señalando regiones a analizar o a distinguir. Una persona suele hacer anotaciones marcando zonas sobre la imagen, en algunos casos es posible automatizar estas anotaciones haciendo uso de otros algoritmos de visión artificial.
+El algoritmo Watershed es un ejemplo de segmentación asistida, este requiere que se le asignen etiquetas a algunos píxeles, a los que se denominan semillas. El algoritmo va ampliando la región a partir de ellas buscando los bordes entre segmentos. Si el resultado no es el esperado, el usuario debe aumentar la cantidad de marcas especialmente en la zona que se debe cambiar.
+
+**Semántica**: Distingue categorías de alto nivel significante, usualmente objetos etiqueta los píxeles de una imagen, es más precisa que otras formas de detección de objetos.  La segmentación semántica no se limita a sólo dos categorías. Es posible modificar el número de categorías para clasificar el contenido de la imagen. En la primera los píxeles son atribuidos a una categoría concreta, como “nube”, “arroyo” o “vehículo”. 
+
+**Instanciada**: Distingue individuos de la misma categoría. Es posible que un píxel pertenezca a dos objetos. La red elabora máscaras binarias que determinan la pertenencia de un cierto píxel a un objeto determinado.
+
+**Panóptica**: Combinación de la segmentación semántica e instanciada, reconociendo individuos de varias categorías
+
+### PRINCIPIOS Y ALGORITMOS
+Los algoritmos de segmentación se basan en los siguientes principios: 
+
+**Discontinuidades del nivel de gris**: Consisten en segmentar la imagen a partir de los cambios grandes en los niveles de gris entre los píxeles. Las técnicas que utilizan las discontinuidades como base son la detección de líneas, de bordes, de puntos aislados, etc. 
+
+**Similitud de niveles de gris**: Es lo contrario al método anterior, las divisiones de la imagen se hacen agrupando los píxeles que tienen unas características similares. Algunas técnicas que usan esto son la umbralización, el crecimiento de regiones, etc.
+Dentro de los algoritmos podemos encontrar algunos como de umbralización, clasificación, agrupamiento, y campos aleatorios de Markov, los cuales pueden considerarse métodos de clasificación de píxeles.
+
+**Umbralización**: La umbralización (thresholding) es un método que busca segmentar imágenes escalares creando una partición binaria de las intensidades de las imágenes. Una umbralización trata de determinar un valor de intensidad, llamado umbral (threshold), que separa las clases deseadas. La segmentación se logra agrupando todos los píxeles con mayor intensidad al umbral en una clase, y todos los otros píxeles en otra clase.
+
+**Crecimiento de región (Region growing)**: extraer regiones de la imagen que están conectadas según cierto criterio predefinido. Este criterio puede estar basado en información de intensidades y/o bordes de la imagen. En su forma más simple, este método requiere un punto semilla (seed point) que es seleccionado manualmente por el usuario, y extrae todos los pixeles conectados a la semilla, que tengan el mismo valor de intensidad.
+
+**Clasificadores**: Los métodos clasificadores son técnicas de reconocimiento de patrones que buscan particionar un espacio característico derivado de la imagen usando datos con etiquetas conocidas. Un espacio característico es un rango espacial de cualquier función de la imagen, siendo las intensidades de la imagen el más común de los espacios característicos. Un histograma es un ejemplo de un espacio característico unidimensional.
+
+**Agrupamiento (Clustering)**: Los algoritmos de agrupamiento (clustering) llevan a cabo esencialmente la misma función que los métodos clasificadores, pero sin utilizar datos de entrenamiento. Por lo tanto, son métodos no supervisados. Este algoritmo agrupa datos calculando iterativamente la media de la intensidad para cada clase y segmentando la imagen mediante la clasificación de cada píxel en la clase con la media más cercana.
+
+**Campos aleatorios de Markov**: Los modelos de campos aleatorios de Markov (MRF – Markov Random Fields) no son un método de segmentación en sí mismos, pero son un modelo estadístico que puede ser usado dentro de los métodos de segmentación. Los MRF modelan las interacciones espaciales entre vecinos o píxeles cercanos. Estas correlaciones locales proveen un mecanismo para modelar una variedad de propiedades de la imagen. En el tratamiento de imágenes médicas, se utilizan frecuentemente para tomar en cuenta el hecho que la mayoría de los píxeles pertenecen a la misma clase a la que pertenecen sus píxeles vecinos. Los MRF son incorporados frecuentemente en los algoritmos de segmentación por agrupamiento, como las K-medias bajo un modelo Bayesiano previo.
+
+**Redes neuronales artificiales**: Las ANN representan un paradigma para el aprendizaje de las máquinas y pueden ser usadas en una variedad de formas de segmentación de imágenes. El uso que más se le da en procesamiento de imágenes médicas es el de un clasificador, donde los pesos son determinados usando datos de entrenamiento y luego se utiliza la ANN para segmentar nuevos datos. Las ANN también pueden ser usadas de una manera no supervisada como método de agrupamiento o como modelo deformable.
+
+### VENTAJAS Y DESVENTAJAS
+**VENTAJAS**
+
+Facilita la identificación de objetos: La segmentación de imágenes permite separar los objetos de una imagen y destacarlos del fondo. Esto facilita la identificación de los objetos y su análisis.
+
+Ayuda en la comprensión de la imagen: Al separar los objetos de la imagen, la segmentación puede ayudar a comprender mejor la estructura y la composición de la imagen.
+
+Mejora la precisión del procesamiento de imágenes: La segmentación de imágenes ayuda a reducir la complejidad del procesamiento de imágenes al permitir que los algoritmos se centren en áreas específicas de la imagen en lugar de analizar la imagen completa.
+
+Permite la extracción de características: Al dividir una imagen en segmentos, se pueden extraer características específicas de cada segmento, lo que puede ser útil en tareas como el reconocimiento de objetos y la clasificación de imágenes.
+
+Ayuda en la detección de objetos y seguimiento de movimientos: La segmentación de imágenes puede ser utilizada para detectar objetos en movimiento y hacer un seguimiento de su trayectoria a través de múltiples cuadros de imagen.
+
+Facilita la eliminación de ruido: La segmentación de imágenes permite separar los objetos de la imagen del ruido y las imperfecciones, lo que facilita la eliminación de ruido y mejora la calidad de la imagen.
+
+**DESVENTAJAS**
+
+Sensibilidad a la variabilidad de las imágenes: La segmentación de imágenes puede ser sensible a la variabilidad en las imágenes, como la iluminación, la calidad de la imagen, la textura y el contraste, lo que puede afectar negativamente la precisión y la calidad de los resultados.
+
+Dificultad en la selección de los parámetros: La segmentación de imágenes a menudo requiere la selección de parámetros específicos, como umbrales y criterios de conectividad, lo que puede ser difícil y requerir conocimientos especializados.
+
+Dificultad en la segmentación de objetos complejos: La segmentación de imágenes puede ser difícil cuando los objetos son complejos o tienen formas irregulares, lo que puede resultar en una segmentación imprecisa o incompleta.
+
+Consumo de tiempo y recursos: La segmentación de imágenes puede ser computacionalmente intensiva y consumir muchos recursos, como tiempo y memoria, especialmente en imágenes grandes y complejas.
+
+Problemas de sobresegmentación y subsegmentación: La sobresegmentación ocurre cuando se segmenta una imagen en regiones demasiado pequeñas, mientras que la subsegmentación ocurre cuando se agrupan regiones que no deberían estar juntas. Ambos problemas pueden afectar negativamente la precisión y la calidad de los resultados.
+
+### EJEMPLO MATLAB 
+Para la realización del ejemplo visto en clase se utilizó el siguiente vídeo como referencia: https://www.youtube.com/watch?v=ofzD_brgxgU
+
+### CONCLUSIÓN SEGMENTACIÓN
+La segmentación de imágenes puede ser útil en muchos tipos de proyectos de visión por computadora, como la detección de objetos, la identificación de patrones y la eliminación de ruido en las imágenes. Además, la segmentación de imágenes también se puede utilizar en aplicaciones de realidad aumentada y realidad virtual, donde se necesita identificar objetos específicos en una imagen para superponer información adicional en la escena.
+En conclusión, la segmentación de imágenes es una técnica importante en el campo de la visión por computadora que permite identificar objetos y regiones específicas en una imagen. Hay varias técnicas de segmentación de imágenes disponibles, y cada una de ellas puede ser útil en diferentes tipos de proyectos de visión por computadora. La segmentación de imágenes se puede utilizar en una amplia gama de aplicaciones, desde la detección de objetos hasta la realidad aumentada y virtual.
+
+## EXTRACCIÓN DE CARACTERÍSTICAS
+En el área de visión de computadoras, muchas veces se requiere obtener características geométricas de los objetos existentes en imágenes digitales, esto se realiza con el objetivo de poder tomar decisiones. Por ejemplo, si una figura es redonda se puede hacer algo, otro caso sería si está inclinada corregir la posición.
+Estos conjuntos podrán ser utilizados como imágenes de comparación contra otras herramientas.
+La extracción de características, como bien dice su nombre, consiste en extraer características de un objeto para reconocerlo por regiones, una región se puede describir por la forma de su frontera o por sus características internas. La identificación de objetos o regiones en una imagen a menudo se pueden realizar usando descriptores de textura.
+
+¿Qué podemos extraer?
+Área en pixeles
+
+Perímetro
+
+Orientación
+
+Redondez
+
+Centroide
+
+Etiquetado
+
+## IDENTIFICACIÓN DE OBJETOS
+El reconocimiento de objetos es una técnica de visión artificial para identificar objetos en imágenes o vídeos. El reconocimiento de objetos constituye una salida clave de los algoritmos de deep learning y machine learning. Cuando las personas miramos una fotografía o vemos un vídeo, detectamos con rapidez personas, objetos, lugares y detalles visuales. El objetivo es enseñar a un ordenador a hacer lo que resulta natural para los humanos: adquirir cierto nivel de comprensión del contenido de una imagen.
+
+La detección de objetos y el reconocimiento de objetos son técnicas similares para identificar objetos, pero varían en cuanto a su ejecución. La detección de objetos es el proceso de localizar objetos presentes en imágenes. En el caso de deep learning, la detección de objetos forma parte del reconocimiento de objetos, que no solo identifica el objeto, sino que lo localiza en una imagen. Esto permite identificar y localizar varios objetos en la misma imagen.
