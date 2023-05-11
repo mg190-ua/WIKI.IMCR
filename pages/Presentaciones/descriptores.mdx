@@ -12,13 +12,21 @@ Actualmente existen varios tipos de descriptores que podemos usar para nuestro p
 
 Para tener claro qué es un *HOG*, a continuación se muestra una imagen que explica cómo estos descriptores reconocen patrones en una imagen. En este ejemplo, se usa un patrón extraído a partir de muchas imágenes de caras para reconocer una cara en una imagen dada.
 
-**INSERTAR IMAGEN**
+![image](Images/ImagenesDescriptores/hog.png)
 
 ### SURF
 
+*Speeded Up Robust Features* es similar a SIFT en que es invariante a cambios de escala y rotación y utiliza histogramas de orientación de gradientes. No obstante, es más rápido debido a que utiliza aproximaciones a los cálculos de gradientes y cálculos de determinantes de matrices hessianas.
+
+Una matriz hessiana es una matriz cuadrada de segundas derivadas parciales de una función escalar. En este contexto se utiliza para analizar la estructura local de la imagen en un punto de interés.
+
 ### ORB
 
+*Oriented FAST and Rotated BRIEF* utiliza una combinación de características de detección y descripción. ORB usa el algoritmo de detección de puntos clave *FAST* para detectar puntos de interés, y luego utiliza el descriptor *BRIEF* para describir las características locales en una imagen. ORB también es invariante a cambios de escala y rotación.
+
 ### BRISK
+
+*Binary Robust Invariant Scalable Keypoints* es una versión mejorada y más rápida de ORB, y utiliza la misma estrategia de detección y descripción. BRISK utiliza una aproximación binaria para la descripción de características, lo que reduce el tamaño del descriptor y aumenta la eficiencia. Es robusto frente a cambios de escala.
 
 ## Práctica.
 
@@ -48,8 +56,6 @@ puntos_objeto = detectSIFTFeatures(objeto);
 
 puntos_contexto = detectSIFTFeatures(contexto);
 
-**INSERTAR IMÁGENES DE PUNTOS_**
-
 Para mostrar los datos recogidos de la imagen podemos usar los siguientes comandos:
 
 **figure;**
@@ -72,7 +78,9 @@ Con esto mostraremos la imagen **objeto.jpg** con los cien puntos de las caracte
 
 Aquí mostraremos los 300 puntos más fuertes que se han detectado en el contexto.
 
-**INSERTAR FIGURAS CON PUNTOS**
+![image](Images/ImagenesDescriptores/puntos_objeto.png)
+
+![image](Images/ImagenesDescriptores/puntos_contexto.png)
 
 ### Extracción.
 
@@ -82,7 +90,7 @@ Deberemos extraer las características de la imagen. Este proceso lo haremos con
 
 **[features_objeto, puntos_objeto] = extractFeatures(objeto, puntos_objeto);**
 
-**INSERTAR IMAGEN FEATURES**
+![image](Images/ImagenesDescriptores/variable_features.png)
 
 ### *Matching*.
 
@@ -92,7 +100,7 @@ Ahora que tenemos las características extraídas podemos realizar el *matching*
 
 Con el comando anterior hemos emparejado las características iguales que se han encontrado en la imagen del objeto con las que han sido halladas en la imagen del contexto.
 
-**INSERTAR IMAGEN PAREJAS_OBJETO**
+![image](Images/ImagenesDescriptores/variable_parejas_objeto.png)
 
 Podemos mostrar estas características emparejadas de la siguiente forma:
 
@@ -106,7 +114,7 @@ Podemos mostrar estas características emparejadas de la siguiente forma:
 
 El comando anterior sacará la siguiente figura por pantalla:
 
-**INSERTAR FEATURES EMPAREJADAS**
+![image](Images/ImagenesDescriptores/puntos_emparejados_objetos.png)
 
 ### Refinado.
 
@@ -114,7 +122,7 @@ A menudo nos salen puntos emparejados con otros que no tienen nada que ver. Son 
 
 **[tform,inlierIdx]=estgeotform2d(puntos_emparejados_objeto,puntos_emparejados_contexto,'affine');**
 
-**INSERTAR IMAGEN DEL REFINADO**
+![image](Images/ImagenesDescriptores/refinado.png)
 
 ### Localización.
 
@@ -140,7 +148,7 @@ Por último, podemos localizar el objeto en la imagen con las características q
 
 Obtendremos como salida la siguiente imagen:
 
-**INSERTAR IMAGEN LOCALIZACIÓN**
+![image](Images/ImagenesDescriptores/localizacion.png)
 
 ### Comparación con otros decsriptores.
 
@@ -148,14 +156,20 @@ Podemos hacer el mismo proceso con los otros descriptores, pero cambiando el com
 
 #### SURF
 
+![image](Images/ImagenesDescriptores/puntos_emparejados_objetos_SURF.png)
+
 #### ORB
+
+![image](Images/ImagenesDescriptores/puntos_emparejados_objetos_ORB.png)
 
 #### BRISK
 
+![image](Images/ImagenesDescriptores/puntos_emparejados_objetos_BRISK.png)
+
 ### Observaciones.
 
-Es importante destacar que la calidad importa. A continucación, observamos, con una comparación, lo que ocurre si tenemos las mismas imágenes pero con distinta calidad.
+Es importante destacar que la calidad importa. A continucación, observamos, aplicando el descriptor BRISK, lo que ocurre si tenemos las mismas imágenes pero con mejor calidad.
 
-**INSERTAR COMPARACIÓN**
+![image](Images/ImagenesDescriptores/puntos_emparejados_objetos_BRISK_2.png)
 
 Como observamos, se pueden emparejar muchos más puntos y características en una imagen de mejor calidad.
