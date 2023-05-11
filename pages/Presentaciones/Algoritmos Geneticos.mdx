@@ -1,0 +1,95 @@
+# Algoritmos Genéticos
+
+## Historia y Origen
+Los algoritmos genéticos son una parte integral de la ciencia de la computación y la inteligencia artificial. Se originan en el concepto de la evolución natural y se basan en la idea de la supervivencia del más apto. El concepto de algoritmos genéticos fue introducido por primera vez en la década de 1960 y ha evolucionado significativamente desde entonces.
+
+John Holland, un científico de la computación y psicólogo, es una figura clave en la historia de los algoritmos genéticos.
+![image](Images/Geneticos/JohnHolland.png)
+Holland propuso que se podría utilizar un proceso similar a la evolución natural para optimizar los problemas de búsqueda y aprendizaje automático. En los algoritmos genéticos, una población de candidatos a soluciones para un problema se somete a una serie de transformaciones, similares a las de la evolución biológica.
+
+## Conceptos Básicos
+Selección natural y la teoría de la evolución == Optimización.
+Estos algoritmos utilizan una población de soluciones candidatas y aplican operadores genéticos como la selección, la cruza y la mutación. 
+![image](Images/Geneticos/Jirafas.png)
+La selección natural es el proceso por el cual los organismos mejor adaptados a su entorno tienden a sobrevivir y transmitir sus características hereditarias en una mayor proporción que los organismos menos aptos.
+
+
+**La genética:** es la ciencia que estudia la herencia y la variabilidad genética en los seres vivos.
+
+**Los genes:** son unidades de información que determinan las características heredadas de un individuo, y están compuestos por moléculas de ADN.
+ El conjunto completo de genes de un organismo se conoce como su genoma.
+
+
+**Los cromosomas:** son estructuras que contienen el ADN y se encuentran en el núcleo de las células.
+
+**Los genes:** son segmentos de ADN en los cromosomas que codifican para proteínas específicas y determinan características heredables.
+
+**Los alelos:** son variantes de un gen que se encuentran en el mismo locus en cromosomas homólogos. Los alelos pueden ser dominantes o recesivos.
+![image](Images/Geneticos/Cromosomas.png)
+
+## Aplicaciones de los Algoritmos Genéticos
+Los algoritmos genéticos son particularmente útiles para resolver problemas de optimización y búsqueda en los que la solución puede no ser evidente o puede haber muchas soluciones posibles. Algunas de las aplicaciones de los algoritmos genéticos incluyen:
+
+**Optimización de funciones:** Los algoritmos genéticos pueden usarse para encontrar el máximo o mínimo global de una función que puede tener muchos máximos o mínimos locales.
+
+**Planificación y programación:** Los algoritmos genéticos se usan a menudo en problemas de planificación y programación, como la programación de horarios de trabajo, el enrutamiento de vehículos o la planificación de la producción en fábricas.
+
+**Aprendizaje automático y minería de datos:** Los algoritmos genéticos pueden utilizarse para seleccionar características, optimizar parámetros de modelos y generar reglas de clasificación.
+
+**Diseño de productos y sistemas:** En la ingeniería, los algoritmos genéticos se usan a menudo para optimizar el diseño de productos y sistemas. Por ejemplo, pueden utilizarse para diseñar estructuras que cumplan con ciertos criterios de resistencia y peso, o para optimizar la configuración de un sistema de calefacción, ventilación y aire acondicionado.
+
+**Problemas de ruta:** Los algoritmos genéticos son excelentes para resolver problemas de ruta, como el problema del viajante de comercio, donde el objetivo es encontrar la ruta más corta que visita una serie de ciudades.
+
+**Juegos y arte:** Los algoritmos genéticos también se han utilizado en el desarrollo de juegos, la generación de arte y música, y otros campos creativos.
+
+## Componentes de un Algoritmo Genético
+**La población inicial es un conjunto de soluciones candidatas generadas aleatoriamente** para el problema que se va a resolver. Cada solución candidata, llamada individuo o cromosoma, representa una posible solución al problema y contiene una secuencia de genes. 
+![image](Images/Geneticos/PI.png)
+
+**Función de aptitud (Fitness function):** La función de aptitud evalúa qué tan buena es cada solución candidata. Esta función es crucial y debe diseñarse cuidadosamente para guiar al algoritmo hacia la solución óptima.
+
+**Selección:** El proceso de selección elige individuos de la población para que sean los padres de la próxima generación. Los individuos se seleccionan con base en su aptitud, con soluciones más aptas que tienen una mayor probabilidad de ser seleccionadas.
+![image](Images/Geneticos/seleccion.png)
+**Cruce (Crossover) o Recombinación:** En el cruce, se toman dos individuos y se combinan para crear uno o más descendientes. El objetivo del cruce es explorar nuevas regiones del espacio de búsqueda al combinar aspectos de dos soluciones existentes.
+
+**Mutación:** La mutación altera aleatoriamente partes de un individuo. Esto ayuda a mantener la diversidad en la población y evita que el algoritmo quede atrapado en óptimos locales.
+
+**Reemplazo:** Después de que se han generado los descendientes, el proceso de reemplazo determina qué individuos deben ser eliminados y cuáles deben ser añadidos a la población.
+![image](Images/Geneticos/reemplazo.png)
+
+## Ejemplo de Algoritmo Genético en Python
+```python	
+def algoritmo_genetico():
+    # Crear una población inicial
+    poblacion = [Cromosoma() for _ in range(100)]
+
+    for _ in range(1000):  # Realizar 1000 generaciones
+        # Evaluar la aptitud de cada cromosoma
+        aptitudes = [aptitud(c, [10, 20, 30, 40, 50]) for c in poblacion]
+
+        # Seleccionar los cromosomas más aptos
+        poblacion = [p for p, a in sorted(zip(poblacion, aptitudes), key=lambda x: x[1], reverse=True)[:50]]
+
+        # Cruzar los cromosomas para producir descendencia
+        descendencia = []
+        for _ in range(50):  # Crear 50 nuevos cromosomas
+            padre1, padre2 = np.random.choice(poblacion, 2)  # Seleccionar dos padres al azar
+            hijo = Cromosoma()
+            hijo.pesos = (padre1.pesos + padre2.pesos) / 2  # Promediar los pesos de los padres
+            descendencia.append(hijo)
+
+        # Mutar la descendencia
+        for c in descendencia:
+            if np.random.rand() < 0.01:  # 1% de posibilidad de mutación
+                c.pesos += np.random.normal(0, 0.1, c.pesos.shape)  # Añadir ruido gaussiano a los pesos
+
+        #        # Reemplazar la población antigua con la descendencia
+        poblacion = descendencia
+
+    # Devolver el cromosoma más apto de la última generación
+    aptitudes = [aptitud(c, [10, 20, 30, 40, 50]) for c in poblacion]
+    mejor_cromosoma = sorted(zip(poblacion, aptitudes), key=lambda x: x[1], reverse=True)[0][0]
+
+    return mejor_cromosoma
+```
+
