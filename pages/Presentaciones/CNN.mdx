@@ -1,0 +1,53 @@
+
+# Redes Neuronales Convolucionales
+
+Las Redes Neuronales Convolucionales (CNNs) son un tipo de red neuronal de aprendizaje profundo que es particularmente adecuada para tareas de reconocimiento de imágenes y visión por computador. Una red de apendizaje produndo (*Deep Neural Network* en inglés) es un tipo de red neuronal artificial (ANN) compuesta de múltiples capas de neuronas interconectadas. Cada capa procesa datos de manera jerárquica, con la salida de una capa sirviendo como entrada a la siguiente capa. Una Neurona Artificial, también conocida como perceptrón, es la unidad básica de cálculo en una ANN. Se define como una función matemática que toma una o más entradas y produce una única salida.
+
+La estructura de las CNNs se puede dividir en dos partes claramente diferenciables: las capa convolucionales y las capas completamente conectadas (*Fully Connected Layer* en inglés). Como norma general en las capas convolucionales se extraén las características de las imágenes introducidas como entrada y en las capas completamente conectadas se combinan esas carácteristicas para obtener el resultado deseado. Este resultado podría ser la clase a la que pertenece dicha imagen en un problema de clasificación.
+
+## Redes Neuronales Profundas (DNN)
+
+### Perceptron o Neurona Artificial: La unidad básica de clasificación
+
+En su forma más simple, una neurona artificial toma un conjunto de entradas ($x_i$), multiplica cada entrada por un peso correspondiente ($w_i$) y luego suma las entradas ponderados. Esta suma luego se pasa a través de una función de activación, que determina el valor de salida de la neurona ($y$).
+
+La función de activación suele ser una función no lineal, como la función sigmoide o la función de unidad rectificada (ReLU), que permite incorporar no-linearidad a los modelos.
+
+Como ejemplo vamos a imaginar que las únicas características que necesitamos para clasificar animales entre gatos y no-gatos son su monería (*cuteness*) y la longitud de su cola (*tail length*). La función deseada tendría una forma silimilar a la siguiente imagen:
+
+![image](Images/CNN/linearboundary.png)
+
+La representación de la neurona que utilizaríamos sería la siguiente:
+
+![image](Images/CNN/perceptron.png)
+
+### Capas  Neuronales
+
+Las neuronas artificiales se organizan en capas, con cada neurona en una capa recibiendo entradas de las neuronas de la capa anterior. Las salidas de las neuronas en una capa sirven como las entradas para la capa siguiente, permitiendo que la red disgregue de manera más óptima los datos de entrada dependiendo de su salida esperada.
+
+![image](Images/CNN/nonlinearboundary.png)
+
+Hay muchos tipos de capas en una DNN, cada una con un propósito diferente. Algunos tipos comunes de capas incluyen:
+
+- Capas completamente conectadas: Formadas un conjunto de perceptrones que toman todos las mismas entradas y cuya salida está conectada a todos los perceptrones de la siguiente capa (si esta existe).
+- Capa convolucional: Aplica un conjunto de filtros a los datos de entrada, extrayendo características como bordes y formas.
+- Capa de agrupamiento: Reduce la dimensionalidad de los mapas de características producidos por la capa convolucional.
+- Capa recurrente: Una capa que introduce conexiones de retroalimentación entre neuronas, permitiendo que la red modele secuencias de datos.
+
+![image](Images/CNN/layer.png)
+
+### Estructura de una DNN
+
+![image](Images/CNN/dnn.png)
+
+## Convolución
+
+![image](Images/CNN/discreteconvolution.png)
+
+## Capas Convolucionales
+
+![image](Images/CNN/convolutionallayer.png)
+
+## Conclusión
+
+![image](Images/CNN/xkcd.png)
